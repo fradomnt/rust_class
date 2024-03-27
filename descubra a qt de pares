@@ -1,0 +1,40 @@
+fn count_pairs_at(value: [i8; 5], target: i8) -> i8 {
+    let mut count = 0; // Inicializa o contador de pares como zero
+
+    let mut left = 0; // Índice do primeiro elemento
+    let mut right = value.len() - 1; // Índice do último elemento
+
+    // O algoritmo funciona com a abordagem de dois ponteiros.
+    // Temos um ponteiro apontando para o início do array (left) e outro apontando para o final (right).
+    // Vamos movê-los em direção um ao outro para explorar todas as combinações possíveis.
+
+    // Enquanto os índices não se cruzarem
+    while left < right {
+        let sum = value[left] + value[right]; // Calcula a soma dos elementos nos índices atualmente apontados
+
+        // Se a soma for igual ao alvo, encontramos um par
+        if sum == target {
+            count += 1; // Incrementa o contador de pares
+            left += 1; // Avança para o próximo elemento à esquerda
+            right -= 1; // Retrocede para o próximo elemento à direita
+        }
+        // Se a soma for menor que o alvo, precisamos de uma soma maior, então avançamos para o próximo elemento à esquerda
+        else if sum < target {
+            left += 1;
+        }
+        // Se a soma for maior que o alvo, precisamos de uma soma menor, então retrocedemos para o próximo elemento à direita
+        else {
+            right -= 1;
+        }
+    }
+
+    count // Retorna o total de pares encontrados
+}
+
+fn main() {
+    let array = [1, 2, 3, 4, 5]; // Array de exemplo
+    let target = 6; // Alvo de busca
+
+    let pairs = count_pairs_at(array, target); // Chama a função para contar os pares
+    println!("Number of pairs that sum up to {}: {}", target, pairs); // Imprime o resultado
+}
