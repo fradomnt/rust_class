@@ -1,0 +1,24 @@
+fn is_a_palindrome(value: &str) -> bool {
+    // Remove espaços em branco e converte para minúsculas
+    let cleaned_value: String = value.chars() // Converte a string de entrada em um iterador de caracteres
+        .filter(|c| !c.is_whitespace()) // Filtra os caracteres removendo espaços em branco
+        .map(|c| c.to_lowercase().next().unwrap()) // Converte todos os caracteres para minúsculas
+        .collect(); // Coleta os caracteres filtrados e convertidos de volta em uma String
+    
+    // Verifica se a string limpa é igual à sua reversa, ignorando o caractere central se for ímpar
+    let mid = cleaned_value.len() / 2; // Encontra o índice do caractere central
+    let (left, right) = cleaned_value.split_at(mid); // Divide a string limpa em duas partes, na metade
+    let right = if cleaned_value.len() % 2 == 0 { right } else { &right[1..] }; // Remove o caractere central se o comprimento for ímpar
+    
+    left == right.chars().rev().collect::<String>() // Compara as metades esquerda e direita da string
+}
+
+fn main() {
+    let example1 = "radar"; // Exemplo de palíndromo
+    let example2 = "Hello World"; // Exemplo de não palíndromo
+    let example3 = "level"; // Exemplo de palíndromo
+    
+    println!("Is '{}' a palindrome? {}", example1, is_a_palindrome(example1)); // Verifica se o exemplo1 é um palíndromo e imprime o resultado
+    println!("Is '{}' a palindrome? {}", example2, is_a_palindrome(example2)); // Verifica se o exemplo2 é um palíndromo e imprime o resultado
+    println!("Is '{}' a palindrome? {}", example3, is_a_palindrome(example3)); // Verifica se o exemplo3 é um palíndromo e imprime o resultado
+}
