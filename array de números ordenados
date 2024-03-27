@@ -1,0 +1,35 @@
+fn contains_target_at(value: [i8; 5], target: i8) -> bool {
+    let mut low = 0; // Define o começo do intervalo de busca
+    let mut high = value.len() as i8 - 1; // Define o fim do intervalo de busca
+
+    // Enquanto ainda houver elementos para olhar no intervalo...
+    while low <= high {
+        // Encontra o meio do intervalo
+        let mid = low + (high - low) / 2;
+
+        // Se o elemento no meio é o que estamos procurando, encontramos o alvo!
+        if value[mid as usize] == target {
+            return true;
+        // Se o elemento no meio é menor que o alvo, olhamos na metade à direita do meio
+        } else if value[mid as usize] < target {
+            low = mid + 1;
+        // Se o elemento no meio é maior que o alvo, olhamos na metade à esquerda do meio
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    // Se terminamos de olhar e não encontramos o alvo, retornamos falso
+    false
+}
+
+fn main() {
+    let array = [1, 3, 5, 7, 9]; // Array ordenado para procurar
+    let target1 = 5; // Alvo que está no array
+    let target2 = 6; // Alvo que não está no array
+
+    // Procura pelo target1 no array e imprime o resultado
+    println!("Array contains target {}: {}", target1, contains_target_at(array, target1));
+    // Procura pelo target2 no array e imprime o resultado
+    println!("Array contains target {}: {}", target2, contains_target_at(array, target2));
+}
